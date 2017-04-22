@@ -2,6 +2,7 @@ package com.abin.lee.lock.redis.distribute;
 
 import com.abin.lee.lock.redis.service.RedisService;
 import com.abin.lee.lock.redis.service.impl.RedisServiceImpl;
+import com.google.common.base.Strings;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -54,7 +55,8 @@ public class BusinessService {
         } finally {
             // 释放锁
             try {
-                redisService.releaseLock(lockKey);
+                if(!Strings.isNullOrEmpty(lockKey))
+                    redisService.releaseLock(lockKey);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println("start-release-redislock-failure="+ e);
