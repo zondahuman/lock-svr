@@ -38,12 +38,12 @@ public class CuratorDistributeLock {
         zkClient.usingNamespace(nameSpace);
     }
 
-    public static Boolean acquireLock(CuratorFramework client, String lockKey)  {
+    public static Boolean acquireLock(CuratorFramework client, Integer lockTime, String lockKey)  {
         InterProcessMutex lock = new InterProcessMutex(client, "/"+lockKey);
         Boolean flag = Boolean.FALSE;
         try {
             System.out.println("flag.start=" + flag +"---"+ DateUtil.getYMDHMSTime());
-            flag = lock.acquire(10000, TimeUnit.SECONDS);
+            flag = lock.acquire(lockTime, TimeUnit.SECONDS);
             System.out.println("flag.end=" + flag +"---"+ DateUtil.getYMDHMSTime());
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class CuratorDistributeLock {
 
     public static void main(String[] args) throws InterruptedException {
         String lockKey = "tcp_1";
-        boolean flag = acquireLock(zkClient, lockKey);
+        boolean flag = acquireLock(zkClient, 10, lockKey);
         Thread.sleep(35*1000);
         System.out.println("main-flag="+flag);
         releaseLock(zkClient, lockKey);
