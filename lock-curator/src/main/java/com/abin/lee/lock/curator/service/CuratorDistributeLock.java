@@ -43,7 +43,7 @@ public class CuratorDistributeLock {
         Boolean flag = Boolean.FALSE;
         try {
             System.out.println("flag.start=" + flag +"---"+ DateUtil.getYMDHMSTime());
-            flag = lock.acquire(10, TimeUnit.SECONDS);
+            flag = lock.acquire(10000, TimeUnit.SECONDS);
             System.out.println("flag.end=" + flag +"---"+ DateUtil.getYMDHMSTime());
         } catch (Exception e) {
             e.printStackTrace();

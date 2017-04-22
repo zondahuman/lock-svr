@@ -71,7 +71,7 @@ public class TestCuratorLock2 {
                     "/test_group");
             try {
                 System.out.println("----------" + this.name + "开始获取到锁----------" + DateUtil.getYMDHMSTime());
-                if (lock.acquire(120, TimeUnit.SECONDS)) {
+                if (lock.acquire(1200, TimeUnit.SECONDS)) {
                     System.out.println("----------" + this.name + "获取到锁----------" + DateUtil.getYMDHMSTime());
                     try {
                         // do some work inside of the critical section here
@@ -79,7 +79,7 @@ public class TestCuratorLock2 {
                                 + "获得资源----------");
                         System.out.println("----------" + this.name
                                 + "正在处理资源----------");
-                        Thread.sleep(10 * 1000);
+                        Thread.sleep(1000 * 1000);
                         System.out.println("----------" + this.name
                                 + "资源使用完毕----------");
                         latch.countDown();
